@@ -152,7 +152,7 @@ def main():
     time_start = datetime.now()
     print "Code execution started at: {}".format(time_start)
     base_path = opj("./resources/encrypted_payloads")
-    count_packets = 100000 # number of packets
+    count_packets = 10000 # number of packets
     for cipher_algo in CIPHER_ALGOS:
         generate_packets(opj(base_path, cipher_algo+".pickle"), count_packets, cipher_algo)
     time_end = datetime.now()
