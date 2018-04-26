@@ -14,6 +14,7 @@ matplotlib.use('Agg')
 from matplotlib import pyplot as plt
 import seaborn as sns
 import fetch_and_conserve as fnc
+import generate_encrypted_payloads as gep
 
 ##################################################
 
@@ -165,6 +166,7 @@ def main():
     time_start = datetime.now()
     print "Code execution started at: {}".format(time_start)
 
+    gep.generate_encrypted_packets()
     plot_feature_values()
 
     time_end = datetime.now()

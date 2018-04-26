@@ -146,8 +146,8 @@ def generate_packets(output_path, count_packets, cipher_algo):
 
 ###################################################
 
-def main():
-    """ Main """
+def generate_encrypted_packets():
+    """ Generate encrypted packets """
 
     time_start = datetime.now()
     print "Code execution started at: {}".format(time_start)
@@ -161,6 +161,11 @@ def main():
     print "Time consumed: {}".format(time_end - time_start)
 
     return
+
+##################################################
+
+def main():
+    generate_encrypted_packets()
 
 ##################################################
 
