@@ -70,6 +70,11 @@ def plot_seaborn_ciphers(feature_label, plot_data):
     plt.ylabel("CDF")
     plt.xscale("log")
 
+    if feature_label in ["mvar_pcc", "mvar_kldvg"]:
+        plt.xlim(10**-6, 10**-3)
+    elif feature_label in ["mavg_kldvg"]:
+        plt.xlim(2.7*10**-1, 3.2*10**-1)
+
     marker = itertools.cycle(("o", "v", "p", "d", "h", "s", "^"))
     linestyle = itertools.cycle(("-", "-.", "--", ":"))
 
@@ -166,7 +171,7 @@ def main():
     time_start = datetime.now()
     print "Code execution started at: {}".format(time_start)
 
-    gep.generate_encrypted_packets()
+    # gep.generate_encrypted_packets()
     plot_feature_values()
 
     time_end = datetime.now()

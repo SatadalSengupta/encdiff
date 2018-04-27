@@ -53,6 +53,8 @@ def payload_to_bytes(payload):
 def encrypt_packet(packet_payload, cipher_algo):
     """ Generate an encrypted packet from plaintext packet """
 
+    encrypted_payload = ""
+
     if cipher_algo == "AES":
         init_vec = Random.new().read(AES.block_size)
         cipher = AES.new(KEY, AES.MODE_CBC, init_vec)
@@ -74,9 +76,10 @@ def encrypt_packet(packet_payload, cipher_algo):
         init_vec = Random.new().read(block_size)
         cipher = Blowfish.new(KEY, Blowfish.MODE_CBC, init_vec)
         plen = block_size - divmod(len(packet_payload), block_size)[1]
-        padding = [plen]*plen
-        padding = pack('b'*plen, *padding)
-        encrypted_payload = cipher.encrypt(packet_payload + padding)
+        # padding = [plen]*plen
+        # padding = pack('b'*plen, *padding)
+        # encrypted_payload = cipher.encrypt(packet_payload + padding)
+        encrypted_payload = cipher.encrypt(packet_payload)
 
     elif cipher_algo == "CAST":
         init_vec = Random.new().read(CAST.block_size)
@@ -112,6 +115,8 @@ def encrypt_packet(packet_payload, cipher_algo):
 
     else:
         encrypted_payload = "###INVALID###"
+
+    print "Length for cipher algo {}: {}".format(cipher_algo, len(encrypted_payload))
 
     return encrypted_payload
 
@@ -152,7 +157,7 @@ def generate_encrypted_packets():
     time_start = datetime.now()
     print "Code execution started at: {}".format(time_start)
     base_path = opj("./resources/encrypted_payloads")
-    count_packets = 1000000 # number of packets
+    count_packets = 2 # number of packets
     for cipher_algo in CIPHER_ALGOS:
         generate_packets(opj(base_path, cipher_algo+".pickle"), count_packets, cipher_algo)
     time_end = datetime.now()
